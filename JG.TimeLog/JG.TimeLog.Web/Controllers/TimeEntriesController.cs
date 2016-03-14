@@ -17,7 +17,7 @@ namespace JG.TimeLog.Web.Controllers
         // GET: TimeEntries
         public ActionResult Index()
         {
-            var timeEntries = db.TimeEntries.Include(t => t.Project);
+            var timeEntries = db.TimeEntries.Where(t => t.Username.Equals(User.Identity.Name)).Include(t => t.Project);
             return View(timeEntries.ToList());
         }
 
