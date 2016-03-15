@@ -10,7 +10,7 @@ namespace JG.TimeLog.Web.DataAccess
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
-        public List<Project> GetListOfProjects()
+        public List<Project> GetProjectsList()
         {
             return db.Projects.Include(p => p.Customer).ToList();
         }
@@ -34,13 +34,12 @@ namespace JG.TimeLog.Web.DataAccess
 
         public void DeleteProject(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            db.Projects.Remove(db.Projects.Find(id));
             db.SaveChanges();
         }
 
 
-        public List<Customer> GetListOfCustomers()
+        public List<Customer> GetCustomersList()
         {
             return db.Customers.ToList();
         }
@@ -64,25 +63,29 @@ namespace JG.TimeLog.Web.DataAccess
 
         public void DeleteCustomer(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            db.Customers.Remove(db.Customers.Find(id));
             db.SaveChanges();
         }
 
 
-        public List<TimeEntry> GetListOfTimeEntriesPerUser(string username)
+        public List<TimeEntry> GetTimeEntriesListPerUser(string username)
         {
             return db.TimeEntries.Where(t => t.Username.Equals(username)).Include(t => t.Project).ToList();
         }
 
-        public List<TimeEntry> GetListOfTimeEntriesPerProject(int projectId)
+        public List<TimeEntry> GetTimeEntriesListPerProject(int projectId)
         {
             return db.TimeEntries.Where(t => t.ProjectId == projectId).Include(t => t.Project).ToList();
         }
 
-        public List<TimeEntry> GetListOfTimeEntriesPerUserPerProject(string username, int projectId)
+        public List<TimeEntry> GetTimeEntriesListPerUserPerProject(string username, int projectId)
         {
             return db.TimeEntries.Where(t => t.Username.Equals(username) && t.ProjectId == projectId).Include(t => t.Project).ToList();
+        }
+
+        public TimeEntry SelectTimeEntryFromId(int id)
+        {
+            return db.TimeEntries.Include(t => t.Project).First(p => p.Id == id);
         }
 
         public void InsertTimeEntry(TimeEntry timeEntry)

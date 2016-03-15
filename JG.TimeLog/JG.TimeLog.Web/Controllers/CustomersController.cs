@@ -7,17 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JG.TimeLog.Web.Models;
+using JG.TimeLog.Web.DataAccess;
 
 namespace JG.TimeLog.Web.Controllers
 {
     public class CustomersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private LocalMsSqlDb db = new LocalMsSqlDb();
 
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.GetCustomersList());
         }
 
         // GET: Customers/Details/5
@@ -27,7 +28,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.SelectCustomerFromId(id.Value);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,7 @@ namespace JG.TimeLog.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
+                db.InsertCustomer(customer);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +65,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.SelectCustomerFromId(id.Value);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -82,8 +82,7 @@ namespace JG.TimeLog.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
+                db.EditCustomer(customer);
                 return RedirectToAction("Index");
             }
             return View(customer);
@@ -96,7 +95,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.SelectCustomerFromId(id.Value);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -109,9 +108,7 @@ namespace JG.TimeLog.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
+            db.DeleteCustomer(id);
             return RedirectToAction("Index");
         }
 

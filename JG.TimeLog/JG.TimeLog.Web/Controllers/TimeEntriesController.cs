@@ -7,18 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JG.TimeLog.Web.Models;
+using JG.TimeLog.Web.DataAccess;
 
 namespace JG.TimeLog.Web.Controllers
 {
     public class TimeEntriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private LocalMsSqlDb db = new LocalMsSqlDb();
 
         // GET: TimeEntries
         public ActionResult Index()
         {
-            var timeEntries = db.TimeEntries.Where(t => t.Username.Equals(User.Identity.Name)).Include(t => t.Project);
-            return View(timeEntries.ToList());
+            return View(db.GetTimeEntriesListPerUser(User.Identity.Name));
         }
 
         // GET: TimeEntries/Details/5
@@ -28,9 +28,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var timeEntries = db.TimeEntries.Include(p => p.Project);
-            TimeEntry timeEntry = timeEntries.First(p => p.Id == id);
+            TimeEntry timeEntry = db.SelectTimeEntryFromId(id.Value);
             if (timeEntry == null)
             {
                 return HttpNotFound();
@@ -41,7 +39,7 @@ namespace JG.TimeLog.Web.Controllers
         // GET: TimeEntries/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectId = new SelectList(db.GetProjectsList(), "Id", "Name");
             return View();
         }
 
@@ -58,12 +56,11 @@ namespace JG.TimeLog.Web.Controllers
                 timeEntry.AddedDateTime = currDateTime;
                 timeEntry.LastUpdatedDateTime = currDateTime;
                 timeEntry.Username = User.Identity.Name;
-                db.TimeEntries.Add(timeEntry);
-                db.SaveChanges();
+                db.InsertTimeEntry(timeEntry);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", timeEntry.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.GetProjectsList(), "Id", "Name", timeEntry.ProjectId);
             return View(timeEntry);
         }
 
@@ -74,12 +71,12 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeEntry timeEntry = db.TimeEntries.Find(id);
+            TimeEntry timeEntry = db.SelectTimeEntryFromId(id.Value);
             if (timeEntry == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", timeEntry.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.GetProjectsList(), "Id", "Name", timeEntry.ProjectId);
             return View(timeEntry);
         }
 
@@ -93,11 +90,10 @@ namespace JG.TimeLog.Web.Controllers
             if (ModelState.IsValid)
             {
                 timeEntry.LastUpdatedDateTime = DateTimeOffset.Now;
-                db.Entry(timeEntry).State = EntityState.Modified;
-                db.SaveChanges();
+                db.InsertTimeEntry(timeEntry);
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", timeEntry.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.GetProjectsList(), "Id", "Name", timeEntry.ProjectId);
             return View(timeEntry);
         }
 
@@ -108,9 +104,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var timeEntries = db.TimeEntries.Include(p => p.Project);
-            TimeEntry timeEntry = timeEntries.First(p => p.Id == id);
+            TimeEntry timeEntry = db.SelectTimeEntryFromId(id.Value);
             if (timeEntry == null)
             {
                 return HttpNotFound();
@@ -123,9 +117,7 @@ namespace JG.TimeLog.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TimeEntry timeEntry = db.TimeEntries.Find(id);
-            db.TimeEntries.Remove(timeEntry);
-            db.SaveChanges();
+            db.DeleteTimeEntry(id);
             return RedirectToAction("Index");
         }
 

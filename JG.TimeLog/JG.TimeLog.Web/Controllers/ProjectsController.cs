@@ -7,18 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JG.TimeLog.Web.Models;
+using JG.TimeLog.Web.DataAccess;
 
 namespace JG.TimeLog.Web.Controllers
 {
     public class ProjectsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private LocalMsSqlDb db = new LocalMsSqlDb();
 
         // GET: Projects
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Customer);
-            return View(projects.ToList());
+            return View(db.GetProjectsList());
         }
 
         // GET: Projects/Details/5
@@ -28,9 +28,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var projects = db.Projects.Include(p => p.Customer);
-            Project project = projects.First(p => p.Id == id);
+            Project project = db.SelectProjectFromId(id.Value);
             if (project == null)
             {
                 return HttpNotFound();
@@ -42,7 +40,7 @@ namespace JG.TimeLog.Web.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
+            ViewBag.CustomerId = new SelectList(db.GetCustomersList(), "Id", "Name");
             return View();
         }
 
@@ -55,12 +53,11 @@ namespace JG.TimeLog.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                db.SaveChanges();
+                db.InsertProject(project);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", project.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.GetCustomersList(), "Id", "Name", project.CustomerId);
             return View(project);
         }
 
@@ -71,12 +68,12 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.SelectProjectFromId(id.Value);
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", project.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.GetCustomersList(), "Id", "Name", project.CustomerId);
             return View(project);
         }
 
@@ -89,11 +86,10 @@ namespace JG.TimeLog.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
+                db.EditProject(project);
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", project.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.GetCustomersList(), "Id", "Name", project.CustomerId);
             return View(project);
         }
 
@@ -104,9 +100,7 @@ namespace JG.TimeLog.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var projects = db.Projects.Include(p => p.Customer);
-            Project project = projects.First(p => p.Id == id);
+            Project project = db.SelectProjectFromId(id.Value);
             if (project == null)
             {
                 return HttpNotFound();
@@ -119,19 +113,8 @@ namespace JG.TimeLog.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
-            db.SaveChanges();
+            db.DeleteProject(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
