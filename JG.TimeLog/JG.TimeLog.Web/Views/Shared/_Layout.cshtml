@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - TimeLog</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,6 +35,14 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+        <script type="text/javascript">
+            if (!Modernizr.inputtypes.date) {
+                $(function () {
+                    $(".jqueryui-marker-datepicker").datepicker({ dateFormat: "dd-mm-yy", showOn: "button" }).css("display", "inline-block").next("button").button({ icons: { primary: "ui-icon-calendar" }, text: false });
+                });
+            }
+        </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
