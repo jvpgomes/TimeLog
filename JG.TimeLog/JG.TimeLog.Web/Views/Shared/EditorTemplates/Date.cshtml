@@ -1,0 +1,4 @@
+﻿@model DateTimeOffset?
+@Html.TextBoxFor(model => Model,
+   "{0:dd-MM-yyyy}",
+    new { @class = "form-control jqueryui-marker-datepicker", type = "date" })
