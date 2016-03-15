@@ -1,9 +1,6 @@
 namespace JG.TimeLog.Web.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
     using JG.TimeLog.Web.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<JG.TimeLog.Web.Models.ApplicationDbContext>
@@ -11,7 +8,6 @@ namespace JG.TimeLog.Web.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "JG.TimeLog.Web.Models.ApplicationDbContext";
         }
 
         protected override void Seed(JG.TimeLog.Web.Models.ApplicationDbContext context)
@@ -28,7 +24,6 @@ namespace JG.TimeLog.Web.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
             context.Projects.AddOrUpdate(p => p.Name,
                 new Project
                 {

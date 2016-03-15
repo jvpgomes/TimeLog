@@ -15,19 +15,10 @@
             @Html.DisplayNameFor(model => model.Project)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AddedDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastUpdatedDateTime)
+            @Html.DisplayNameFor(model => model.Hours)
         </th>
         <th></th>
     </tr>
@@ -38,19 +29,10 @@
             @Html.DisplayFor(modelItem => item.Project.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Username)
+            @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddedDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastUpdatedDateTime)
+            @Html.DisplayFor(modelItem => item.Hours)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

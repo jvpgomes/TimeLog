@@ -11,13 +11,13 @@ namespace JG.TimeLog.Web.Models
         public string Username { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; }
-        [DataType(DataType.Date), DisplayName("Start (Datetime)"), DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTimeOffset StartDateTime { get; set; }
-        [DataType(DataType.Date), DisplayName("End (Datetime)")]
-        public DateTimeOffset EndDateTime { get; set; }
-        [DataType(DataType.DateTime), DisplayName("Added (Datetime)")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
+        [DisplayName("Number of hours")]
+        public int Hours { get; set; }
+        [DataType(DataType.DateTime), DisplayName("Added on")]
         public DateTimeOffset AddedDateTime { get; set; }
-        [DataType(DataType.DateTime), DisplayName("Updated (Datetime)")]
+        [DataType(DataType.DateTime), DisplayName("Updated on")]
         public DateTimeOffset LastUpdatedDateTime { get; set; }
     }
 }

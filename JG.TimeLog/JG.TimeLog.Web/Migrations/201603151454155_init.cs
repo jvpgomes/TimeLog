@@ -3,7 +3,7 @@ namespace JG.TimeLog.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -41,8 +41,8 @@ namespace JG.TimeLog.Web.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Username = c.String(),
                         ProjectId = c.Int(nullable: false),
-                        StartDateTime = c.DateTimeOffset(nullable: false, precision: 7),
-                        EndDateTime = c.DateTimeOffset(nullable: false, precision: 7),
+                        Date = c.DateTime(nullable: false),
+                        Hours = c.Int(nullable: false),
                         AddedDateTime = c.DateTimeOffset(nullable: false, precision: 7),
                         LastUpdatedDateTime = c.DateTimeOffset(nullable: false, precision: 7),
                     })
