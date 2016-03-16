@@ -90,7 +90,7 @@ namespace JG.TimeLog.Web.Controllers
             if (ModelState.IsValid)
             {
                 timeEntry.LastUpdatedDateTime = DateTimeOffset.Now;
-                db.InsertTimeEntry(timeEntry);
+                db.EditTimeEntry(timeEntry);
                 return RedirectToAction("Index");
             }
             ViewBag.ProjectId = new SelectList(db.GetProjectsList(), "Id", "Name", timeEntry.ProjectId);

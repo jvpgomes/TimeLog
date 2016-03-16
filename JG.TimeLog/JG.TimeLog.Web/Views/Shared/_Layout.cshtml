@@ -39,10 +39,12 @@
         <script type="text/javascript">
             if (!Modernizr.inputtypes.date) {
                 $(function () {
-                    $(".jqueryui-marker-datepicker").datepicker({ dateFormat: "dd-mm-yy", showOn: "button" }).css("display", "inline-block").next("button").button({ icons: { primary: "ui-icon-calendar" }, text: false });
+                    $(".jqueryui-marker-datepicker").datepicker({ showOn: "button" }).css("display", "inline-block").next("button").button({ icons: { primary: "ui-icon-calendar" }, text: false });
                 });
             }
         </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
