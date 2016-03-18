@@ -68,9 +68,14 @@ namespace JG.TimeLog.Web.DataAccess
         }
 
 
+        public List<TimeEntry> GetTimeEntriesList()
+        {
+            return db.TimeEntries.Include(t => t.Project.Customer).ToList();
+        }
+
         public List<TimeEntry> GetTimeEntriesListPerUser(string username)
         {
-            return db.TimeEntries.Where(t => t.Username.Equals(username)).Include(t => t.Project).ToList();
+            return db.TimeEntries.Where(t => t.Username.Equals(username)).Include(t => t.Project.Customer).ToList();
         }
 
         public List<TimeEntry> GetTimeEntriesListPerProject(int projectId)

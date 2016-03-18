@@ -1,0 +1,33 @@
+﻿@model IEnumerable<JG.TimeLog.Web.Models.TimePerCustomer>
+
+@{
+    ViewBag.Title = "Total Time Per Customer";
+}
+
+<h2>Total Time Per Customer</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalTime)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalTime)
+            </td>
+        </tr>
+    }
+
+</table>
+

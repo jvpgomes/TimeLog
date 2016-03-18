@@ -196,12 +196,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\IdentityControllers\AccountController.cs" />
+    <Compile Include="Controllers\DataControllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\TimeEntriesController.cs" />
+    <Compile Include="Controllers\IdentityControllers\ManageController.cs" />
+    <Compile Include="Controllers\DataControllers\ProjectsController.cs" />
+    <Compile Include="Controllers\DataControllers\TimeEntriesController.cs" />
+    <Compile Include="Controllers\ReportControllers\MonthlyTimePerCustomersController.cs" />
+    <Compile Include="Controllers\ReportControllers\MonthlyTimePerProjectsController.cs" />
+    <Compile Include="Controllers\ReportControllers\TimePerProjectsController.cs" />
+    <Compile Include="Controllers\ReportControllers\TimePerCustomersController.cs" />
     <Compile Include="DataAccess\LocalMsSqlDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -217,6 +221,10 @@
     <Compile Include="Models\IdentityModels\ManageViewModels.cs" />
     <Compile Include="Models\DbDataModels\Project.cs" />
     <Compile Include="Models\DbDataModels\TimeEntry.cs" />
+    <Compile Include="Models\ReportModels\MonthlyTimePerCustomer.cs" />
+    <Compile Include="Models\ReportModels\TimePerCustomer.cs" />
+    <Compile Include="Models\ReportModels\MonthlyTimePerProject.cs" />
+    <Compile Include="Models\ReportModels\TimePerProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -333,10 +341,17 @@
     <Content Include="Views\TimeEntries\Edit.cshtml" />
     <Content Include="Views\TimeEntries\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\TimePerCustomers\Index.cshtml" />
+    <Content Include="Views\TimePerProjects\Index.cshtml" />
+    <Content Include="Views\MonthlyTimePerCustomers\Index.cshtml" />
+    <Content Include="Views\MonthlyTimePerProjects\Index.cshtml" />
+    <Content Include="Views\TimePerProjects\IndexTotal.cshtml" />
+    <Content Include="Views\TimePerCustomers\IndexTotal.cshtml" />
+    <Content Include="Views\MonthlyTimePerCustomers\IndexTotal.cshtml" />
+    <Content Include="Views\MonthlyTimePerProjects\IndexTotal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ReportModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
