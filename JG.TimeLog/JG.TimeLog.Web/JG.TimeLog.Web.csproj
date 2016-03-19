@@ -216,11 +216,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityModels\AccountViewModels.cs" />
-    <Compile Include="Models\DbDataModels\Customer.cs" />
+    <Compile Include="Models\DataModels\Customer.cs" />
     <Compile Include="Models\IdentityModels\IdentityModels.cs" />
     <Compile Include="Models\IdentityModels\ManageViewModels.cs" />
-    <Compile Include="Models\DbDataModels\Project.cs" />
-    <Compile Include="Models\DbDataModels\TimeEntry.cs" />
+    <Compile Include="Models\DataModels\Project.cs" />
+    <Compile Include="Models\DataModels\TimeEntry.cs" />
     <Compile Include="Models\ReportModels\MonthlyTimePerCustomer.cs" />
     <Compile Include="Models\ReportModels\TimePerCustomer.cs" />
     <Compile Include="Models\ReportModels\MonthlyTimePerProject.cs" />

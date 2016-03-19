@@ -13,8 +13,6 @@ namespace JG.TimeLog.UnitTests.Controllers
             var controller = new CustomersController();
             var result = controller.Create() as ViewResult;
 
-            var r1 = controller.Index();
-
             // Assert
             Assert.IsNotNull(result);
         }

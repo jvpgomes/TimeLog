@@ -3,9 +3,6 @@
 JG.TimeLog/.vs/
 JG.TimeLog/JG.TimeLog.Web/bin/
 JG.TimeLog/JG.TimeLog.Web/obj/
-JG.TimeLog/JG.TimeLog.UnitTests/bin/*
-!JG.TimeLog/JG.TimeLog.UnitTests/bin/Debug/
-JG.TimeLog/JG.TimeLog.UnitTests/bin/Debug/*
-!JG.TimeLog/JG.TimeLog.UnitTests/bin/Debug/db/
+JG.TimeLog/JG.TimeLog.UnitTests/bin/
 JG.TimeLog/JG.TimeLog.UnitTests/obj/
 JG.TimeLog/TestResults/

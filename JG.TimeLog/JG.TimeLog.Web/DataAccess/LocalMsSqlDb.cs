@@ -7,8 +7,17 @@ namespace JG.TimeLog.Web.DataAccess
 {
     public class LocalMsSqlDb
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+        private ApplicationDbContext db;
+        
+        public LocalMsSqlDb()
+        {
+            db = new ApplicationDbContext();
+        }
+        
+        public LocalMsSqlDb(ApplicationDbContext dbContext)
+        {
+            db = dbContext;
+        }
 
         public List<Project> GetProjectsList()
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using JG.TimeLog.Web.Models;
 using JG.TimeLog.Web.DataAccess;
 
-namespace JG.TimeLog.Web.Controllers.ReportControllers
+namespace JG.TimeLog.Web.Controllers
 {
     public class MonthlyTimePerProjectsController : Controller
     {
