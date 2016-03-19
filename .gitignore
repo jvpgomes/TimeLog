@@ -1,5 +1,7 @@
 *.user
 *.suo
+*.mdf
+*.ldf
 JG.TimeLog/.vs/
 JG.TimeLog/JG.TimeLog.Web/bin/
 JG.TimeLog/JG.TimeLog.Web/obj/
