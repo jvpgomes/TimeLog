@@ -24,36 +24,36 @@ namespace JG.TimeLog.Web.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Projects.AddOrUpdate(p => p.Name,
-                new Project
-                {
-                    Name = "Webshop",
-                    Description = "Website for online commerce",
-                    Customer = new Customer
-                    {
-                        Name = "Amazing Customer",
-                        Address = "Great gade 1",
-                        City = "Copenhagen",
-                        Country = "Denmark",
-                        PostalCode = "1000",
-                        Email = "amazing@customer.com"
-                    }
-                },
+            //context.Projects.AddOrUpdate(p => p.Name,
+            //    new Project
+            //    {
+            //        Name = "Webshop",
+            //        Description = "Website for online commerce",
+            //        Customer = new Customer
+            //        {
+            //            Name = "Amazing Customer",
+            //            Address = "Great gade 1",
+            //            City = "Copenhagen",
+            //            Country = "Denmark",
+            //            PostalCode = "1000",
+            //            Email = "amazing@customer.com"
+            //        }
+            //    },
 
-                new Project
-                {
-                    Name = "System migration",
-                    Description = "Migration of systems",
-                    Customer = new Customer
-                    {
-                        Name = "Not So Amazing Customer",
-                        Address = "Great gade 2",
-                        City = "Copenhagen",
-                        Country = "Denmark",
-                        PostalCode = "1000",
-                        Email = "not.so.amazing@customer.com"
-                    }
-                });
+            //    new Project
+            //    {
+            //        Name = "System migration",
+            //        Description = "Migration of systems",
+            //        Customer = new Customer
+            //        {
+            //            Name = "Not So Amazing Customer",
+            //            Address = "Great gade 2",
+            //            City = "Copenhagen",
+            //            Country = "Denmark",
+            //            PostalCode = "1000",
+            //            Email = "not.so.amazing@customer.com"
+            //        }
+            //    });
         }
     }
 }
